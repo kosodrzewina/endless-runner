@@ -7,12 +7,12 @@ import java.awt.event.WindowEvent;
 public class Main extends Frame {
 
     public Main() {
-        this.setTitle("Runner");
+        setTitle("Runner");
 
-        this.setSize(1000, 500);
-        this.setVisible(true);
+        setSize(1000, 500);
+        setVisible(true);
 
-        this.addWindowListener(
+        addWindowListener(
                 new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
