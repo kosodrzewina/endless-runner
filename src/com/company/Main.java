@@ -4,15 +4,15 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Main {
+public class Main extends Frame {
 
-    public static void main(String[] args) {
-        Frame frame = new Frame("Runner");
+    public Main() {
+        this.setTitle("Runner");
 
-        frame.setSize(1000, 500);
-        frame.setVisible(true);
+        this.setSize(1000, 500);
+        this.setVisible(true);
 
-        frame.addWindowListener(
+        this.addWindowListener(
                 new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
@@ -21,5 +21,9 @@ public class Main {
                     }
                 }
         );
+    }
+
+    public static void main(String[] args) {
+        new Main();
     }
 }
