@@ -6,6 +6,13 @@ import java.awt.event.WindowEvent;
 
 public class Main extends Frame {
 
+    public void paint(Graphics graphics) {
+        int level = 400;
+
+        Ground ground = new Ground(level);
+        ground.paint(graphics);
+    }
+
     public Main() {
         setTitle("Runner");
 
