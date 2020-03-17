@@ -7,10 +7,13 @@ import java.awt.event.WindowEvent;
 public class Main extends Frame {
 
     public void paint(Graphics graphics) {
-        int level = 400;
+        int groundLevel = getSize().height - 100;
 
-        Ground ground = new Ground(level);
+        Ground ground = new Ground(groundLevel);
         ground.paint(graphics);
+
+        Circle circle = new Circle(100, Color.yellow);
+        circle.paint(graphics);
     }
 
     public Main() {
