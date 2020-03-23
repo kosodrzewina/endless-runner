@@ -28,4 +28,10 @@ public class Rectangle extends GeometricFigure {
         graphics.setColor(color);
         graphics.fillRect(10, 10, width, height);
     }
+
+    @Override
+    public void paint(int x, int y, Graphics graphics) {
+        graphics.setColor(color);
+        graphics.fillRect(x, y, width, height);
+    }
 }

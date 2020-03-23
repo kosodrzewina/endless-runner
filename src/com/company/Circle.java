@@ -16,4 +16,10 @@ public class Circle extends GeometricFigure {
         graphics.setColor(color);
         graphics.fillOval(0, 0, 2 * radius, 2 * radius);
     }
+
+    @Override
+    public void paint(int x, int y, Graphics graphics) {
+        graphics.setColor(color);
+        graphics.fillOval(x, y, 2 * radius, 2 * radius);
+    }
 }
