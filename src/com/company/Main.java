@@ -1,5 +1,6 @@
 package com.company;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +9,10 @@ import java.awt.event.WindowEvent;
 
 public class Main extends Frame {
     boolean environmentState = true;
+    Button timeSwitch;
 
     public void paint(Graphics graphics) {
+        timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         Color[] environment = setEnvironment(environmentState);
         int groundLevel = getSize().height - 100;
 
@@ -38,12 +41,17 @@ public class Main extends Frame {
 
     public Main() {
         setTitle("Runner");
-
-        Button timeSwitch = new Button("switch to night");
-        add(timeSwitch);
-
-        setLayout(new FlowLayout());
         setSize(1000, 500);
+
+        JPanel panel = new JPanel();
+        timeSwitch = new Button("switch to night");
+
+        timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
+        panel.add(timeSwitch);
+        add(panel);
+
+        panel.setLayout(null);
+
         setVisible(true);
 
         addWindowListener(
