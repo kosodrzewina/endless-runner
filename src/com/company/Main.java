@@ -21,8 +21,8 @@ public class Main extends Frame {
         Ground ground = new Ground(groundLevel);
         ground.paint(graphics);
 
-        Circle sunMoon = new Circle(200, environment[1]);
-        sunMoon.paint(getSize().width - sunMoon.radius, -sunMoon.radius, graphics);
+        Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
+        sunMoon.paint(graphics);
     }
 
     public Color[] setEnvironment(boolean time) {

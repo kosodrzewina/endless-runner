@@ -3,7 +3,7 @@ package com.company;
 import java.awt.*;
 
 public class Circle extends GeometricFigure {
-    int radius;
+    int radius, x = 0, y = 0;
 
     public Circle(int radius, Color color) {
         super(color);
@@ -11,14 +11,16 @@ public class Circle extends GeometricFigure {
         this.radius = radius;
     }
 
-    @Override
-    public void paint(Graphics graphics) {
-        graphics.setColor(color);
-        graphics.fillOval(0, 0, 2 * radius, 2 * radius);
+    public Circle(int radius, Color color, int x, int y) {
+        super(color);
+
+        this.radius = radius;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
-    public void paint(int x, int y, Graphics graphics) {
+    public void paint(Graphics graphics) {
         graphics.setColor(color);
         graphics.fillOval(x, y, 2 * radius, 2 * radius);
     }
