@@ -73,6 +73,20 @@ public class Main extends Frame {
                 timeSwitch.setLabel((environmentState) ? "switch to night" : "switch to day");
             }
         });
+
+        new Thread() {
+            public void run() {
+                while (true) {
+                    repaint();
+
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
 
     public static void main(String[] args) {
