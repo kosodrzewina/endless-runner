@@ -9,12 +9,14 @@ import java.awt.event.WindowEvent;
 
 public class Main extends Frame {
     boolean environmentState = true;
+    int groundLevel;
     Button timeSwitch;
+
+    Rectangle rectangle;
 
     public void paint(Graphics graphics) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         Color[] environment = setEnvironment(environmentState);
-        int groundLevel = getSize().height - 100;
 
         setBackground(environment[0]);
 
@@ -23,6 +25,8 @@ public class Main extends Frame {
 
         Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
         sunMoon.paint(graphics);
+
+        rectangle.paint(graphics);
     }
 
     public Color[] setEnvironment(boolean time) {
@@ -42,6 +46,7 @@ public class Main extends Frame {
     public Main() {
         setTitle("Runner");
         setSize(1000, 500);
+        groundLevel = getSize().height - 100;
 
         JPanel panel = new JPanel();
         timeSwitch = new Button("switch to night");
@@ -51,8 +56,9 @@ public class Main extends Frame {
         add(panel);
 
         panel.setLayout(null);
-
         setVisible(true);
+
+        rectangle = new Rectangle(100, 200, getWidth(), groundLevel - 100);
 
         addWindowListener(
                 new WindowAdapter() {
@@ -80,7 +86,7 @@ public class Main extends Frame {
                     repaint();
 
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
