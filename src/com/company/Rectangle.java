@@ -50,4 +50,9 @@ public class Rectangle extends GeometricFigure {
         graphics.setColor(color);
         graphics.fillRect(x, y, width, height);
     }
+
+    @Override
+    void move() {
+        x -= 10;
+    }
 }
