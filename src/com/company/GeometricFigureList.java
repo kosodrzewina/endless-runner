@@ -28,6 +28,21 @@ public class GeometricFigureList {
         return size;
     }
 
+    public GeometricFigure getAt(int position) throws IndexOutOfBoundsException {
+        Node temp = head;
+        int currentPosition = 0;
+
+        while (temp != null && currentPosition < position) {
+            temp = temp.next;
+            currentPosition++;
+        }
+
+        if (currentPosition == position && temp != null)
+            return temp.geometricFigure;
+        else
+            throw new IndexOutOfBoundsException();
+    }
+
     public Node getHead() {
         return head;
     }
