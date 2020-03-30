@@ -16,6 +16,18 @@ public class GeometricFigureList {
         }
     }
 
+    public int size() {
+        int size = 0;
+        Node temp = head;
+
+        while (temp != null) {
+            temp = temp.next;
+            size++;
+        }
+
+        return size;
+    }
+
     public Node getHead() {
         return head;
     }
