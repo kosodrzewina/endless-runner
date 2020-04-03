@@ -8,11 +8,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Main extends Frame {
-    boolean environmentState = true;
-    int groundLevel;
-    Button timeSwitch;
+    private boolean environmentState = true;
+    private int groundLevel;
+    private Button timeSwitch;
 
-    Rectangle rectangle;
+    private GeometricFigureList obstacles = new GeometricFigureList();
 
     public void paint(Graphics graphics) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
@@ -26,7 +26,8 @@ public class Main extends Frame {
         Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
         sunMoon.paint(graphics);
 
-        rectangle.paint(graphics);
+        for (int i = 0; i < obstacles.size(); i++)
+            obstacles.getAt(i).paint(graphics);
     }
 
     public Color[] setEnvironment(boolean time) {
@@ -58,8 +59,6 @@ public class Main extends Frame {
         panel.setLayout(null);
         setVisible(true);
 
-        rectangle = new Rectangle(100, 200, getWidth(), groundLevel - 100);
-
         addWindowListener(
                 new WindowAdapter() {
                     @Override
@@ -82,11 +81,19 @@ public class Main extends Frame {
 
         new Thread() {
             public void run() {
+                long time = 5000;
+
                 while (true) {
+                    // generate new obstacle every 5s
+                    if (System.currentTimeMillis() - time >= 5000) {
+                        obstacles.add(new Rectangle(100, 200, getWidth(), groundLevel - 100));
+                        time = System.currentTimeMillis();
+                    }
+
                     repaint();
 
                     try {
-                        Thread.sleep(200);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
