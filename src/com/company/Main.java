@@ -17,6 +17,7 @@ public class Main extends Frame {
     public void paint(Graphics graphics) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         Color[] environment = setEnvironment(environmentState);
+        groundLevel = getSize().height - 100;
 
         setBackground(environment[0]);
 
@@ -26,8 +27,10 @@ public class Main extends Frame {
         Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
         sunMoon.paint(graphics);
 
-        for (int i = 0; i < obstacles.size(); i++)
+        for (int i = 0; i < obstacles.size(); i++) {
+            obstacles.getAt(i).y = groundLevel - 100;
             obstacles.getAt(i).paint(graphics);
+        }
     }
 
     public Color[] setEnvironment(boolean time) {
