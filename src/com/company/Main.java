@@ -8,6 +8,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Main extends Frame {
+    private boolean setSky = true;
     private boolean environmentState = true;
     private int groundLevel;
     private Button timeSwitch;
@@ -19,7 +20,10 @@ public class Main extends Frame {
         Color[] environment = setEnvironment(environmentState);
         groundLevel = getSize().height - 100;
 
-        setBackground(environment[0]);
+        if (setSky) {
+            setBackground(environment[0]);
+            setSky = false;
+        }
 
         Ground ground = new Ground(groundLevel);
         ground.paint(graphics);
@@ -76,6 +80,7 @@ public class Main extends Frame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 environmentState = !environmentState;
+                setSky = true;
                 repaint();
 
                 timeSwitch.setLabel((environmentState) ? "switch to night" : "switch to day");
