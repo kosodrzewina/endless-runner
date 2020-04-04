@@ -13,6 +13,7 @@ public class Main extends Frame {
     private int groundLevel;
     private Button timeSwitch;
 
+    Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
 
     public void paint(Graphics graphics) {
@@ -30,6 +31,9 @@ public class Main extends Frame {
 
         Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
         sunMoon.paint(graphics);
+
+        player.paint(graphics);
+        player.y = groundLevel - player.height;
 
         for (int i = 0; i < obstacles.size(); i++) {
             obstacles.getAt(i).y = groundLevel - 100;
@@ -55,6 +59,7 @@ public class Main extends Frame {
         setTitle("Runner");
         setSize(1000, 500);
         groundLevel = getSize().height - 100;
+        player = new Player(groundLevel);
 
         JPanel panel = new JPanel();
         timeSwitch = new Button("switch to night");
