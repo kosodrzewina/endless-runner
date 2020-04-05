@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main extends Frame {
-    private boolean setSky = true;
+    private boolean switchTime = true;
     private boolean environmentState = true;
     private int groundLevel;
     private Button timeSwitch;
@@ -19,10 +19,10 @@ public class Main extends Frame {
         Color[] environment = setEnvironment(environmentState);
         groundLevel = getSize().height - 100;
 
-        if (setSky) {
+        if (switchTime) {
             setBackground(environment[0]);
-            setSky = false;
             score.setBackground(environment[1]);
+            switchTime = false;
         }
 
         Ground ground = new Ground(groundLevel);
@@ -107,7 +107,7 @@ public class Main extends Frame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 environmentState = !environmentState;
-                setSky = true;
+                switchTime = true;
                 repaint();
 
                 timeSwitch.setLabel((environmentState) ? "switch to night" : "switch to day");
