@@ -66,6 +66,7 @@ public class Main extends Frame {
 
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         panel.add(timeSwitch);
+        timeSwitch.setFocusable(false);
         add(panel);
 
         panel.setLayout(null);
