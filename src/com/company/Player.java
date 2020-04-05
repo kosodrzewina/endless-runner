@@ -16,6 +16,10 @@ public class Player {
         );
     }
 
+    public void jump() {
+        y -= 70;
+    }
+
     public void paint(Graphics graphics) {
         graphics.setColor(color);
         graphics.fillRect(x, y, width, height);
