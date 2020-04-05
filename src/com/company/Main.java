@@ -57,7 +57,7 @@ public class Main extends Frame {
 
     public Main() {
         setTitle("Runner");
-        setSize(1000, 500);
+        setSize(1280, 720);
         groundLevel = getSize().height - 100;
         player = new Player(groundLevel);
 
