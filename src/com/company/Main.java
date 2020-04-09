@@ -114,27 +114,27 @@ public class Main extends Frame {
             }
         });
 
-        new Thread() {
-            public void run() {
-                long time = 5000;
+        Thread gameLoop = new Thread(() -> {
+            long time = 5000;
 
-                while (true) {
-                    // generate new obstacle every 5s
-                    if (System.currentTimeMillis() - time >= 5000) {
-                        obstacles.add(new Rectangle(100, 200, getWidth(), groundLevel - 100));
-                        time = System.currentTimeMillis();
-                    }
+            while (true) {
+                // generate new obstacle every 5s
+                if (System.currentTimeMillis() - time >= 5000) {
+                    obstacles.add(new Rectangle(100, 200, getWidth(), groundLevel - 100));
+                    time = System.currentTimeMillis();
+                }
 
-                    repaint();
+                repaint();
 
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        }.start();
+        });
+
+        gameLoop.start();
     }
 
     public static void main(String[] args) {
