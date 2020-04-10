@@ -15,6 +15,18 @@ public class Main extends Frame {
     public Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
 
+    // TODO
+    public boolean checkCollision(Player player) {
+        Point[][] playerArea = new Point[player.height][player.width];
+
+        for (int i = player.y; i < playerArea.length; i++) {
+            for (int j = player.x; j < playerArea[i].length; j++)
+                playerArea[i][j] = new Point(j, i);
+        }
+
+        return false;
+    }
+
     public void paint(Graphics graphics) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         Color[] environment = setEnvironment(environmentState);
@@ -116,9 +128,14 @@ public class Main extends Frame {
         });
 
         Thread gameLoop = new Thread(() -> {
+            boolean running = true;
+
+            if (checkCollision(player))
+                running = false;
+
             long time = 5000;
 
-            while (true) {
+            while (running) {
                 // generate new obstacle every 5s
                 if (System.currentTimeMillis() - time >= 5000) {
                     obstacles.add(new Rectangle(100, 200, getWidth(), groundLevel - 100));
