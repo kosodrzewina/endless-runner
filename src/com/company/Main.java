@@ -9,9 +9,10 @@ public class Main extends Frame {
     private boolean environmentState = true;
     private int groundLevel;
     private Button timeSwitch;
-    private Label score;
+    private Label scoreLabel;
+    private int score = -10;
 
-    Player player;
+    public Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
 
     public void paint(Graphics graphics) {
@@ -21,7 +22,7 @@ public class Main extends Frame {
 
         if (switchTime) {
             setBackground(environment[0]);
-            score.setBackground(environment[1]);
+            scoreLabel.setBackground(environment[1]);
             switchTime = false;
         }
 
@@ -62,13 +63,13 @@ public class Main extends Frame {
 
         JPanel panel = new JPanel();
         timeSwitch = new Button("switch to night");
-        score = new Label();
-        score.setText("999");
+        scoreLabel = new Label();
+        scoreLabel.setText("0");
 
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
-        score.setBounds(getWidth() - 120, 60, 85, 20);
+        scoreLabel.setBounds(getWidth() - 120, 60, 85, 20);
         panel.add(timeSwitch);
-        panel.add(score);
+        panel.add(scoreLabel);
         timeSwitch.setFocusable(false);
         add(panel);
 
@@ -122,6 +123,8 @@ public class Main extends Frame {
                 if (System.currentTimeMillis() - time >= 5000) {
                     obstacles.add(new Rectangle(100, 200, getWidth(), groundLevel - 100));
                     time = System.currentTimeMillis();
+
+                    scoreLabel.setText(String.valueOf(score += 10));
                 }
 
                 repaint();
