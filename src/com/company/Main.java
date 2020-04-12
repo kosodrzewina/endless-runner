@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.time.LocalDateTime;
 
 public class Main extends Frame {
     private boolean switchTime = true;
@@ -168,6 +170,25 @@ public class Main extends Frame {
                     running = false;
                     gameOverLabel.setVisible(true);
                     scoreLabel.setBackground(Color.red);
+
+                    // saving score
+                    File file = new File("scores.txt");
+
+                    if (!file.exists()) {
+                        try {
+                            file.createNewFile();
+                        } catch (IOException exception) {
+                            exception.printStackTrace();
+                        }
+                    }
+
+                    try {
+                        FileWriter fileWriter = new FileWriter(file, true);
+                        fileWriter.write(LocalDateTime.now() + ": " + score + "\n");
+                        fileWriter.close();
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
                 }
             }
         });
