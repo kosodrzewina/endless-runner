@@ -11,6 +11,7 @@ public class Main extends Frame {
     private int groundLevel;
     private Button timeSwitch;
     private Label scoreLabel;
+    private JLabel gameOverLabel;
     private int score = -10;
     private BufferedImage bufferedImage;
     private boolean inAir = false;
@@ -126,13 +127,21 @@ public class Main extends Frame {
         JPanel panel = new JPanel();
         timeSwitch = new Button("switch to night");
         scoreLabel = new Label();
+        gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         scoreLabel.setText("0");
 
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 60, 85, 20);
+        gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
+        gameOverLabel.setFont(new Font("Cambria", Font.PLAIN, 100));
+        gameOverLabel.setOpaque(true);
+        gameOverLabel.setBackground(Color.red);
+        gameOverLabel.setVisible(false);
 
         panel.add(timeSwitch);
         panel.add(scoreLabel);
+        panel.add(gameOverLabel);
+
         timeSwitch.setFocusable(false);
         add(panel);
 
@@ -155,8 +164,11 @@ public class Main extends Frame {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE)
                     inAir = true;
 
-                if (e.getKeyCode() == KeyEvent.VK_F1)
+                if (e.getKeyCode() == KeyEvent.VK_F1) {
                     running = false;
+                    gameOverLabel.setVisible(true);
+                    scoreLabel.setBackground(Color.red);
+                }
             }
         });
 
