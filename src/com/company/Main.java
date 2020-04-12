@@ -13,6 +13,9 @@ public class Main extends Frame {
     private Label scoreLabel;
     private int score = -10;
     private BufferedImage bufferedImage;
+    private boolean inAir = false;
+    private int jumpLimit = 250;
+    private boolean goBack = false;
 
     public Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
@@ -49,7 +52,21 @@ public class Main extends Frame {
         sunMoon.paint(graphics2D);
 
         player.paint(graphics2D);
-        player.y = groundLevel - player.height;
+
+        // jumping
+        if (!inAir)
+            player.y = groundLevel - player.height;
+        else if (!goBack && groundLevel - player.y < jumpLimit)
+            player.y -= 10;
+        else if (!goBack)
+            goBack = true;
+
+        if (goBack && groundLevel - player.y > getHeight() - groundLevel - player.height)
+            player.y += 10;
+        else if (goBack) {
+            goBack = false;
+            inAir = false;
+        }
 
         for (int i = 0; i < obstacles.size(); i++) {
             obstacles.getAt(i).y = groundLevel - 100;
@@ -112,6 +129,7 @@ public class Main extends Frame {
 
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 60, 85, 20);
+
         panel.add(timeSwitch);
         panel.add(scoreLabel);
         timeSwitch.setFocusable(false);
@@ -128,13 +146,13 @@ public class Main extends Frame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE)
-                    player.jump();
+
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-
+                if (e.getKeyCode() == KeyEvent.VK_SPACE)
+                    inAir = true;
             }
         });
 
