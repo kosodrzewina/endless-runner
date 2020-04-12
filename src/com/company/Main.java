@@ -183,11 +183,11 @@ public class Main extends Frame {
             if (checkCollision(player))
                 running = false;
 
-            long time = 5000;
+            long time = 2000;
 
             while (running) {
-                // generate new obstacle every 5s
-                if (System.currentTimeMillis() - time >= 5000) {
+                // generate new obstacle every 2s
+                if (System.currentTimeMillis() - time >= 2000) {
                     obstacles.add(new Rectangle(100, 200, getWidth(), groundLevel - 100));
                     time = System.currentTimeMillis();
 
@@ -197,7 +197,7 @@ public class Main extends Frame {
                 repaint();
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
