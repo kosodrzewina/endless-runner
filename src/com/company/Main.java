@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 public class Main extends Frame {
     private boolean switchTime = true;
@@ -11,6 +12,7 @@ public class Main extends Frame {
     private Button timeSwitch;
     private Label scoreLabel;
     private int score = -10;
+    private BufferedImage bufferedImage;
 
     public Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
@@ -27,8 +29,10 @@ public class Main extends Frame {
         return false;
     }
 
-    public void paint(Graphics graphics) {
+    public void drawElements(Graphics2D graphics2D) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
+        scoreLabel.setBounds(getWidth() - 120, 60, 85, 20);
+
         Color[] environment = setEnvironment(environmentState);
         groundLevel = getSize().height - 100;
 
@@ -39,18 +43,46 @@ public class Main extends Frame {
         }
 
         Ground ground = new Ground(groundLevel);
-        ground.paint(graphics);
+        ground.paint(graphics2D);
 
         Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
-        sunMoon.paint(graphics);
+        sunMoon.paint(graphics2D);
 
-        player.paint(graphics);
+        player.paint(graphics2D);
         player.y = groundLevel - player.height;
 
         for (int i = 0; i < obstacles.size(); i++) {
             obstacles.getAt(i).y = groundLevel - 100;
-            obstacles.getAt(i).paint(graphics);
+            obstacles.getAt(i).paint(graphics2D);
         }
+    }
+
+    public Graphics2D createGraphics(Graphics graphics) {
+        Graphics2D graphics2D = null;
+        if (bufferedImage == null || bufferedImage.getWidth() != getWidth() ||
+                bufferedImage.getHeight() != getHeight())
+            bufferedImage = (BufferedImage) createImage(getWidth(), getHeight());
+
+        if (bufferedImage != null) {
+            graphics2D = bufferedImage.createGraphics();
+            graphics2D.setBackground(getBackground());
+        }
+
+        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+        graphics2D.clearRect(0, 0, getWidth(), getHeight());
+
+        return graphics2D;
+    }
+
+    public void paint(Graphics graphics) {
+        Graphics2D graphics2D = createGraphics(graphics);
+        drawElements(graphics2D);
+        graphics2D.dispose();
+
+        if (bufferedImage != null && isShowing())
+            graphics.drawImage(bufferedImage, 0, 0, this);
     }
 
     public Color[] setEnvironment(boolean time) {
