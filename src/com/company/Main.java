@@ -16,6 +16,7 @@ public class Main extends Frame {
     private boolean inAir = false;
     private int jumpLimit = 250;
     private boolean goBack = false;
+    private boolean running = true;
 
     public Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
@@ -153,6 +154,9 @@ public class Main extends Frame {
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE)
                     inAir = true;
+
+                if (e.getKeyCode() == KeyEvent.VK_F1)
+                    running = false;
             }
         });
 
@@ -178,8 +182,6 @@ public class Main extends Frame {
         });
 
         Thread gameLoop = new Thread(() -> {
-            boolean running = true;
-
             if (checkCollision(player))
                 running = false;
 
