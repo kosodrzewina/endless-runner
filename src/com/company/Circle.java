@@ -12,6 +12,19 @@ public class Circle extends GeometricFigure {
         height = width = radius * 2;
     }
 
+    public Circle(int radius, int x, int y) {
+        super(new Color(
+                (int) (Math.random() * 255),
+                (int) (Math.random() * 255),
+                (int) (Math.random() * 255)
+        ));
+
+        this.radius = radius;
+        this.x = x;
+        this.y = y;
+        height = width = radius * 2;
+    }
+
     public Circle(int radius, Color color, int x, int y) {
         super(color);
 
