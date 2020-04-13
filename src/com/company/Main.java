@@ -186,7 +186,7 @@ public class Main extends Frame {
 
                     try {
                         FileWriter fileWriter = new FileWriter(file, true);
-                        fileWriter.write(LocalDateTime.now() + ": " + score + "\n");
+                        fileWriter.write(score + ": " +  LocalDateTime.now() + "\n");
                         fileWriter.close();
                     } catch (IOException exception) {
                         exception.printStackTrace();
@@ -217,9 +217,6 @@ public class Main extends Frame {
         });
 
         Thread gameLoop = new Thread(() -> {
-            if (checkCollision(player))
-                running = false;
-
             long time = 2000;
 
             while (running) {
