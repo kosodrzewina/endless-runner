@@ -3,7 +3,6 @@ package com.company;
 import java.awt.*;
 
 public class Rectangle extends GeometricFigure {
-    int height, width;
 
     public Rectangle(int height, int width, Color color) {
         super(color);

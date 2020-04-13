@@ -9,6 +9,7 @@ public class Circle extends GeometricFigure {
         super(color);
 
         this.radius = radius;
+        height = width = radius * 2;
     }
 
     public Circle(int radius, Color color, int x, int y) {
@@ -17,6 +18,7 @@ public class Circle extends GeometricFigure {
         this.radius = radius;
         this.x = x;
         this.y = y;
+        height = width = radius * 2;
     }
 
     @Override

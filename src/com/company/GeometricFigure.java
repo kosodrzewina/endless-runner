@@ -3,7 +3,7 @@ package com.company;
 import java.awt.*;
 
 abstract public class GeometricFigure extends Thread {
-    int x, y;
+    int x, y, height, width;
     Color color;
 
     public GeometricFigure(Color color) {

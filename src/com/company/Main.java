@@ -72,8 +72,9 @@ public class Main extends Frame {
             inAir = false;
         }
 
+        // drawing obstacles on the ground
         for (int i = 0; i < obstacles.size(); i++) {
-            obstacles.getAt(i).y = groundLevel - 100;
+            obstacles.getAt(i).y = groundLevel - obstacles.getAt(i).height;
             obstacles.getAt(i).paint(graphics2D);
         }
     }
