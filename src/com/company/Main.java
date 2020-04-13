@@ -21,6 +21,8 @@ public class Main extends Frame {
     private int jumpLimit = 250;
     private boolean goBack = false;
     private boolean running = true;
+    Thread gameLoopThread;
+    Color[] environment;
 
     public Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
@@ -61,13 +63,15 @@ public class Main extends Frame {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+
+        restart.setEnabled(true);
     }
 
     public void drawElements(Graphics2D graphics2D) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
 
-        Color[] environment = setEnvironment(environmentState);
+        environment = setEnvironment(environmentState);
         groundLevel = getSize().height - 100;
 
         if (switchTime) {
@@ -176,6 +180,7 @@ public class Main extends Frame {
         gameOverLabel.setBackground(Color.red);
         gameOverLabel.setVisible(false);
         restart.setEnabled(false);
+        restart.setFocusable(false);
 
         panel.add(timeSwitch);
         panel.add(restart);
@@ -231,35 +236,60 @@ public class Main extends Frame {
             }
         });
 
-        Thread gameLoop = new Thread(() -> {
-            long time = 2000;
+        restart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                score = -10;
+                running = true;
+                obstacles.clear();
 
-            while (running) {
-                // generate new obstacle every 2s
-                if (System.currentTimeMillis() - time >= 2000) {
-                    if (Math.random() < 0.3)
-                        obstacles.add(new Circle(45, getWidth(), groundLevel - 100));
-                    else
-                        obstacles.add(new Rectangle(80, 120, getWidth(), groundLevel - 100));
+                timeSwitch.setEnabled(true);
+                restart.setEnabled(false);
+                scoreLabel.setText(String.valueOf(score));
+                gameOverLabel.setVisible(false);
+                scoreLabel.setBackground(environment[1]);
 
-                    time = System.currentTimeMillis();
-                    scoreLabel.setText(String.valueOf(score += 10));
-                }
+                gameLoopThread = new Thread(() -> {
+                    gameLoop();
+                });
 
-                repaint();
-
-                if (checkCollision(player, obstacles.getAt(0)))
-                    gameOver();
-
-                try {
-                    Thread.sleep(20);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                gameLoopThread.start();
             }
         });
 
-        gameLoop.start();
+        gameLoopThread = new Thread(() -> {
+            gameLoop();
+        });
+
+        gameLoopThread.start();
+    }
+
+    public void gameLoop() {
+        long time = 2000;
+
+        while (running) {
+            // generate new obstacle every 2s
+            if (System.currentTimeMillis() - time >= 2000) {
+                if (Math.random() < 0.3)
+                    obstacles.add(new Circle(45, getWidth(), groundLevel - 100));
+                else
+                    obstacles.add(new Rectangle(80, 120, getWidth(), groundLevel - 100));
+
+                time = System.currentTimeMillis();
+                scoreLabel.setText(String.valueOf(score += 10));
+            }
+
+            repaint();
+
+            if (checkCollision(player, obstacles.getAt(0)))
+                gameOver();
+
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args) {
