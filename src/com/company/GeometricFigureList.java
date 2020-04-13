@@ -55,6 +55,10 @@ public class GeometricFigureList {
         head = temp.next;
     }
 
+    public void clear() {
+        head = null;
+    }
+
     public Node getHead() {
         return head;
     }
