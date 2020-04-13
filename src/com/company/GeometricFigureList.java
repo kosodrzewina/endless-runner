@@ -43,6 +43,18 @@ public class GeometricFigureList {
             throw new IndexOutOfBoundsException();
     }
 
+    public void deleteFrom(int i) {
+        Node temp = head;
+        int currentPosition = 0;
+
+        while (temp != null && currentPosition < i) {
+            temp = temp.next;
+            currentPosition++;
+        }
+
+        head = temp.next;
+    }
+
     public Node getHead() {
         return head;
     }
