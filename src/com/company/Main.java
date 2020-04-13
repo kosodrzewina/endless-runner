@@ -230,9 +230,12 @@ public class Main extends Frame {
             while (running) {
                 // generate new obstacle every 2s
                 if (System.currentTimeMillis() - time >= 2000) {
-                    obstacles.add(new Rectangle(80, 120, getWidth(), groundLevel - 100));
-                    time = System.currentTimeMillis();
+                    if (Math.random() < 0.3)
+                        obstacles.add(new Circle(45, getWidth(), groundLevel - 100));
+                    else
+                        obstacles.add(new Rectangle(80, 120, getWidth(), groundLevel - 100));
 
+                    time = System.currentTimeMillis();
                     scoreLabel.setText(String.valueOf(score += 10));
                 }
 
