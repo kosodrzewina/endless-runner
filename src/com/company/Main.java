@@ -244,12 +244,12 @@ public class Main extends Frame {
             gameOverLabel.setVisible(false);
             scoreLabel.setBackground(environment[1]);
 
-            gameLoopThread = new Thread(() -> gameLoop());
+            gameLoopThread = new Thread(this::gameLoop);
 
             gameLoopThread.start();
         });
 
-        gameLoopThread = new Thread(() -> gameLoop());
+        gameLoopThread = new Thread(this::gameLoop);
         gameLoopThread.start();
     }
 
