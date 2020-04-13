@@ -23,17 +23,17 @@ public class Main extends Frame {
 
     public Player player;
     private GeometricFigureList obstacles = new GeometricFigureList();
+    
+    public boolean checkCollision(Player player, GeometricFigure geometricFigure) {
+        Point topLeftPlayer = new Point(player.x, player.y);
+        Point bottomRightPlayer = new Point(player.x + player.width, player.y + player.height);
 
-    // TODO
-    public boolean checkCollision(Player player) {
-        Point[][] playerArea = new Point[player.height][player.width];
+        Point topLeftFigure = new Point(geometricFigure.x, geometricFigure.y);
+        Point bottomRightFigure = new Point(geometricFigure.x + geometricFigure.width,
+                geometricFigure.y + geometricFigure.height);
 
-        for (int i = player.y; i < playerArea.length; i++) {
-            for (int j = player.x; j < playerArea[i].length; j++)
-                playerArea[i][j] = new Point(j, i);
-        }
-
-        return false;
+        return (topLeftPlayer.x < bottomRightFigure.x && bottomRightPlayer.x > topLeftFigure.x
+                && topLeftPlayer.y < bottomRightFigure.y && bottomRightPlayer.y > topLeftFigure.y);
     }
 
     public void drawElements(Graphics2D graphics2D) {
