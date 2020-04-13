@@ -225,42 +225,31 @@ public class Main extends Frame {
                 }
         );
 
-        timeSwitch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                environmentState = !environmentState;
-                switchTime = true;
-                repaint();
+        timeSwitch.addActionListener(e -> {
+            environmentState = !environmentState;
+            switchTime = true;
+            repaint();
 
-                timeSwitch.setLabel((environmentState) ? "switch to night" : "switch to day");
-            }
+            timeSwitch.setLabel((environmentState) ? "switch to night" : "switch to day");
         });
 
-        restart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                score = -10;
-                running = true;
-                obstacles.clear();
+        restart.addActionListener(e -> {
+            score = -10;
+            running = true;
+            obstacles.clear();
 
-                timeSwitch.setEnabled(true);
-                restart.setEnabled(false);
-                scoreLabel.setText(String.valueOf(score));
-                gameOverLabel.setVisible(false);
-                scoreLabel.setBackground(environment[1]);
+            timeSwitch.setEnabled(true);
+            restart.setEnabled(false);
+            scoreLabel.setText(String.valueOf(score));
+            gameOverLabel.setVisible(false);
+            scoreLabel.setBackground(environment[1]);
 
-                gameLoopThread = new Thread(() -> {
-                    gameLoop();
-                });
+            gameLoopThread = new Thread(() -> gameLoop());
 
-                gameLoopThread.start();
-            }
+            gameLoopThread.start();
         });
 
-        gameLoopThread = new Thread(() -> {
-            gameLoop();
-        });
-
+        gameLoopThread = new Thread(() -> gameLoop());
         gameLoopThread.start();
     }
 
