@@ -11,6 +11,7 @@ public class Main extends Frame {
     private boolean switchTime = true;
     private boolean environmentState = true;
     private int groundLevel;
+    private Button restart;
     private Button timeSwitch;
     private Label scoreLabel;
     private JLabel gameOverLabel;
@@ -64,7 +65,7 @@ public class Main extends Frame {
 
     public void drawElements(Graphics2D graphics2D) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
-        scoreLabel.setBounds(getWidth() - 120, 60, 85, 20);
+        scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
 
         Color[] environment = setEnvironment(environmentState);
         groundLevel = getSize().height - 100;
@@ -158,20 +159,26 @@ public class Main extends Frame {
         player = new Player(groundLevel);
 
         JPanel panel = new JPanel();
+
         timeSwitch = new Button("switch to night");
+        restart = new Button("restart");
         scoreLabel = new Label();
         gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         scoreLabel.setText("0");
 
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
-        scoreLabel.setBounds(getWidth() - 120, 60, 85, 20);
+        restart.setBounds(getWidth() - 120, 60, 85, 20);
+        scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
         gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
+
         gameOverLabel.setFont(new Font("Cambria", Font.PLAIN, 100));
         gameOverLabel.setOpaque(true);
         gameOverLabel.setBackground(Color.red);
         gameOverLabel.setVisible(false);
+        restart.setEnabled(false);
 
         panel.add(timeSwitch);
+        panel.add(restart);
         panel.add(scoreLabel);
         panel.add(gameOverLabel);
 
