@@ -36,6 +36,32 @@ public class Main extends Frame {
                 && topLeftPlayer.y < bottomRightFigure.y && bottomRightPlayer.y > topLeftFigure.y);
     }
 
+    public void gameOver() {
+        running = false;
+        gameOverLabel.setVisible(true);
+        scoreLabel.setBackground(Color.red);
+        timeSwitch.setEnabled(false);
+
+        // saving score
+        File file = new File("scores.txt");
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(file, true);
+            fileWriter.write(score + ": " +  LocalDateTime.now() + "\n");
+            fileWriter.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public void drawElements(Graphics2D graphics2D) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 60, 85, 20);
@@ -168,29 +194,7 @@ public class Main extends Frame {
                     inAir = true;
 
                 if (e.getKeyCode() == KeyEvent.VK_F1) {
-                    running = false;
-                    gameOverLabel.setVisible(true);
-                    scoreLabel.setBackground(Color.red);
-                    timeSwitch.setEnabled(false);
-
-                    // saving score
-                    File file = new File("scores.txt");
-
-                    if (!file.exists()) {
-                        try {
-                            file.createNewFile();
-                        } catch (IOException exception) {
-                            exception.printStackTrace();
-                        }
-                    }
-
-                    try {
-                        FileWriter fileWriter = new FileWriter(file, true);
-                        fileWriter.write(score + ": " +  LocalDateTime.now() + "\n");
-                        fileWriter.close();
-                    } catch (IOException exception) {
-                        exception.printStackTrace();
-                    }
+                    gameOver();
                 }
             }
         });
