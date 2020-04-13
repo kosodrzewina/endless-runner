@@ -171,6 +171,7 @@ public class Main extends Frame {
                     running = false;
                     gameOverLabel.setVisible(true);
                     scoreLabel.setBackground(Color.red);
+                    timeSwitch.setEnabled(false);
 
                     // saving score
                     File file = new File("scores.txt");
