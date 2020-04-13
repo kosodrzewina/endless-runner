@@ -234,6 +234,9 @@ public class Main extends Frame {
 
                 repaint();
 
+                if (checkCollision(player, obstacles.getAt(0)))
+                    gameOver();
+
                 try {
                     Thread.sleep(20);
                 } catch (InterruptedException e) {
