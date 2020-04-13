@@ -224,7 +224,7 @@ public class Main extends Frame {
             while (running) {
                 // generate new obstacle every 2s
                 if (System.currentTimeMillis() - time >= 2000) {
-                    obstacles.add(new Rectangle(100, 200, getWidth(), groundLevel - 100));
+                    obstacles.add(new Rectangle(80, 120, getWidth(), groundLevel - 100));
                     time = System.currentTimeMillis();
 
                     scoreLabel.setText(String.valueOf(score += 10));
