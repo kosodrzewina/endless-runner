@@ -12,6 +12,6 @@ public class Ground {
 
     public void paint(Graphics graphics) {
         graphics.setColor(color);
-        graphics.fillRect(0, level, (int) Double.POSITIVE_INFINITY, 100);
+        graphics.fillRect(0, level, Toolkit.getDefaultToolkit().getScreenSize().width, 100);
     }
 }
