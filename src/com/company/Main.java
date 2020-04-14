@@ -171,17 +171,17 @@ public class Main extends Frame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE)
                     inAir = true;
 
                 if (e.getKeyCode() == KeyEvent.VK_F1) {
                     gameOver();
                 }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
         });
 
