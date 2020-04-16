@@ -104,8 +104,10 @@ public class Main extends Frame {
         // drawing obstacles on the ground
         for (int i = 0; i < obstacles.size(); i++) {
             // preventing memory leak
-            if (obstacles.getAt(i).x + obstacles.getAt(i).width < 0)
+            if (obstacles.getAt(i).x + obstacles.getAt(i).width < 0) {
                 obstacles.deleteFrom(i);
+                i = 0;
+            }
 
             obstacles.getAt(i).y = groundLevel - obstacles.getAt(i).height;
             obstacles.getAt(i).paint(graphics);
