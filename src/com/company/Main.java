@@ -68,6 +68,7 @@ public class Main extends Frame {
     public void paint(Graphics graphics) {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
+        restart.setBounds(getWidth() - 120, 60, 85, 20);
 
         environment = setEnvironment(environmentState);
         groundLevel = getSize().height - 100;
