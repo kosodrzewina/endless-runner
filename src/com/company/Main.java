@@ -69,49 +69,52 @@ public class Main extends Frame {
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
         restart.setBounds(getWidth() - 120, 60, 85, 20);
+        gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
 
-        environment = setEnvironment(environmentState);
-        groundLevel = getSize().height - 100;
+        if (running) {
+            environment = setEnvironment(environmentState);
+            groundLevel = getSize().height - 100;
 
-        if (switchTime) {
-            setBackground(environment[0]);
-            scoreLabel.setBackground(environment[1]);
-            switchTime = false;
-        }
-
-        Ground ground = new Ground(groundLevel);
-        ground.paint(graphics);
-
-        Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
-        sunMoon.paint(graphics);
-
-        player.paint(graphics);
-
-        // jumping
-        if (!inAir)
-            player.y = groundLevel - player.height;
-        else if (!goBack && groundLevel - player.y < jumpLimit)
-            player.y -= 10;
-        else if (!goBack)
-            goBack = true;
-
-        if (goBack && groundLevel - player.y > getHeight() - groundLevel - player.height)
-            player.y += 10;
-        else if (goBack) {
-            goBack = false;
-            inAir = false;
-        }
-
-        // drawing obstacles on the ground
-        for (int i = 0; i < obstacles.size(); i++) {
-            // preventing memory leak
-            if (obstacles.getAt(i).x + obstacles.getAt(i).width < 0) {
-                obstacles.deleteFrom(i);
-                i = 0;
+            if (switchTime) {
+                setBackground(environment[0]);
+                scoreLabel.setBackground(environment[1]);
+                switchTime = false;
             }
 
-            obstacles.getAt(i).y = groundLevel - obstacles.getAt(i).height;
-            obstacles.getAt(i).paint(graphics);
+            Ground ground = new Ground(groundLevel);
+            ground.paint(graphics);
+
+            Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
+            sunMoon.paint(graphics);
+
+            player.paint(graphics);
+
+            // jumping
+            if (!inAir)
+                player.y = groundLevel - player.height;
+            else if (!goBack && groundLevel - player.y < jumpLimit)
+                player.y -= 10;
+            else if (!goBack)
+                goBack = true;
+
+            if (goBack && groundLevel - player.y > getHeight() - groundLevel - player.height)
+                player.y += 10;
+            else if (goBack) {
+                goBack = false;
+                inAir = false;
+            }
+
+            // drawing obstacles on the ground
+            for (int i = 0; i < obstacles.size(); i++) {
+                // preventing memory leak
+                if (obstacles.getAt(i).x + obstacles.getAt(i).width < 0) {
+                    obstacles.deleteFrom(i);
+                    i = 0;
+                }
+
+                obstacles.getAt(i).y = groundLevel - obstacles.getAt(i).height;
+                obstacles.getAt(i).paint(graphics);
+            }
         }
     }
 
