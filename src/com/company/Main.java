@@ -14,6 +14,8 @@ public class Main extends Frame {
     private Button timeSwitch;
     private Label scoreLabel;
     private JLabel gameOverLabel;
+    private Label launchLabel;
+    private boolean launch = true;
     private int score = -10;
     private boolean inAir = false;
     private int jumpLimit = 250;
@@ -66,6 +68,9 @@ public class Main extends Frame {
     }
 
     public void paint(Graphics graphics) {
+        if (launch)
+            launchLabel.setBounds(0, 0, getWidth(), getHeight());
+
         timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
         restart.setBounds(getWidth() - 120, 60, 85, 20);
@@ -142,6 +147,7 @@ public class Main extends Frame {
 
         timeSwitch = new Button("switch to night");
         restart = new Button("restart");
+        launchLabel = new Label("Press SPACE to start!", Label.CENTER);
         scoreLabel = new Label();
         gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         scoreLabel.setText("0");
@@ -150,11 +156,16 @@ public class Main extends Frame {
         restart.setBounds(getWidth() - 120, 60, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
         gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
+        launchLabel.setBounds(0, 0, getWidth(), getHeight());
 
         gameOverLabel.setFont(new Font("Cambria", Font.PLAIN, 100));
         gameOverLabel.setOpaque(true);
         gameOverLabel.setBackground(Color.red);
         gameOverLabel.setVisible(false);
+
+        launchLabel.setFont(new Font("Cambria", Font.PLAIN, 100));
+        launchLabel.setVisible(true);
+
         restart.setEnabled(false);
         restart.setFocusable(false);
 
@@ -162,6 +173,7 @@ public class Main extends Frame {
         panel.add(restart);
         panel.add(scoreLabel);
         panel.add(gameOverLabel);
+        panel.add(launchLabel);
 
         timeSwitch.setFocusable(false);
         add(panel);
@@ -178,8 +190,11 @@ public class Main extends Frame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    if (!running) {
+                    if (!running && launch) {
+                        launch = false;
+                        launchLabel.setVisible(false);
                         running = true;
+
                         gameLoopThread = new Thread(() -> {
                             gameLoop();
                         });
