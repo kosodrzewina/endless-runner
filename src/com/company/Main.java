@@ -18,7 +18,7 @@ public class Main extends Frame {
     private boolean inAir = false;
     private int jumpLimit = 250;
     private boolean goBack = false;
-    private boolean running = true;
+    private boolean running = false;
     Thread gameLoopThread;
     Color[] environment;
 
@@ -177,8 +177,18 @@ public class Main extends Frame {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE)
-                    inAir = true;
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    if (!running) {
+                        running = true;
+                        gameLoopThread = new Thread(() -> {
+                            gameLoop();
+                        });
+
+                        gameLoopThread.start();
+                    }
+                    else
+                        inAir = true;
+                }
 
                 if (e.getKeyCode() == KeyEvent.VK_F1) {
                     gameOver();
@@ -224,9 +234,6 @@ public class Main extends Frame {
 
             gameLoopThread.start();
         });
-
-        gameLoopThread = new Thread(this::gameLoop);
-        gameLoopThread.start();
     }
 
     public void gameLoop() {
