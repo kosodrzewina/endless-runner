@@ -20,8 +20,8 @@ public class Circle extends GeometricFigure {
         ));
 
         this.radius = radius;
-        this.x = x;
-        this.y = y;
+        coordinate.x = x;
+        coordinate.y = y;
         height = width = radius * 2;
     }
 
@@ -29,19 +29,19 @@ public class Circle extends GeometricFigure {
         super(color);
 
         this.radius = radius;
-        this.x = x;
-        this.y = y;
+        coordinate.x = x;
+        coordinate.y = y;
         height = width = radius * 2;
     }
 
     @Override
     public void paint(Graphics graphics) {
         graphics.setColor(color);
-        graphics.fillOval(x, y, 2 * radius, 2 * radius);
+        graphics.fillOval(coordinate.x, coordinate.y, 2 * radius, 2 * radius);
     }
 
     @Override
     void move() {
-        x -= 10;
+        coordinate.x -= 10;
     }
 }

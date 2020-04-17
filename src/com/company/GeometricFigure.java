@@ -3,7 +3,8 @@ package com.company;
 import java.awt.*;
 
 abstract public class GeometricFigure extends Thread {
-    int x, y, height, width;
+    Point coordinate = new Point();
+    int height, width;
     Color color;
 
     public GeometricFigure(Color color) {

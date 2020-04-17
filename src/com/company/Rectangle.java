@@ -31,8 +31,8 @@ public class Rectangle extends GeometricFigure {
 
         this.height = height;
         this.width = width;
-        this.x = x;
-        this.y = y;
+        coordinate.x = x;
+        coordinate.y = y;
     }
 
     public Rectangle(int height, int width, int x, int y, Color color) {
@@ -40,18 +40,18 @@ public class Rectangle extends GeometricFigure {
 
         this.height = height;
         this.width = width;
-        this.x = x;
-        this.y = y;
+        coordinate.x = x;
+        coordinate.y = y;
     }
 
     @Override
     public void paint(Graphics graphics) {
         graphics.setColor(color);
-        graphics.fillRect(x, y, width, height);
+        graphics.fillRect(coordinate.x, coordinate.y, width, height);
     }
 
     @Override
     void move() {
-        x -= 10;
+        coordinate.x -= 10;
     }
 }

@@ -29,9 +29,9 @@ public class Main extends Frame {
         Point topLeftPlayer = new Point(player.x, player.y);
         Point bottomRightPlayer = new Point(player.x + player.width, player.y + player.height);
 
-        Point topLeftFigure = new Point(geometricFigure.x, geometricFigure.y);
-        Point bottomRightFigure = new Point(geometricFigure.x + geometricFigure.width,
-                geometricFigure.y + geometricFigure.height);
+        Point topLeftFigure = new Point(geometricFigure.coordinate.x, geometricFigure.coordinate.y);
+        Point bottomRightFigure = new Point(geometricFigure.coordinate.x + geometricFigure.width,
+                geometricFigure.coordinate.y + geometricFigure.height);
 
         return (topLeftPlayer.x < bottomRightFigure.x && bottomRightPlayer.x > topLeftFigure.x
                 && topLeftPlayer.y < bottomRightFigure.y && bottomRightPlayer.y > topLeftFigure.y);
@@ -107,12 +107,12 @@ public class Main extends Frame {
             // drawing obstacles on the ground
             for (int i = 0; i < obstacles.size(); i++) {
                 // preventing memory leak
-                if (obstacles.getAt(i).x + obstacles.getAt(i).width < 0) {
+                if (obstacles.getAt(i).coordinate.x + obstacles.getAt(i).width < 0) {
                     obstacles.deleteFrom(i);
                     i = 0;
                 }
 
-                obstacles.getAt(i).y = groundLevel - obstacles.getAt(i).height;
+                obstacles.getAt(i).coordinate.y = groundLevel - obstacles.getAt(i).height;
                 obstacles.getAt(i).paint(graphics);
             }
         }
