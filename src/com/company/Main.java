@@ -15,10 +15,12 @@ public class Main extends Frame {
     private Button restart;
     private Button timeSwitch;
     private Label scoreLabel;
+    private Label highestScoreLabel;
     private JLabel gameOverLabel;
     private Label launchLabel;
     private boolean launch = true;
     private int score = -10;
+    private int highestScore = 0;
     private boolean inAir = false;
     private int jumpLimit = 250;
     private boolean goBack = false;
@@ -45,6 +47,7 @@ public class Main extends Frame {
         running = false;
         gameOverLabel.setVisible(true);
         scoreLabel.setBackground(Color.red);
+        highestScoreLabel.setBackground(Color.red);
         timeSwitch.setEnabled(false);
 
         // saving score
@@ -99,6 +102,7 @@ public class Main extends Frame {
             if (switchTime) {
                 setBackground(environment[0]);
                 scoreLabel.setBackground(environment[1]);
+                highestScoreLabel.setBackground(environment[1]);
                 switchTime = false;
             }
 
@@ -157,9 +161,10 @@ public class Main extends Frame {
         if (launch)
             launchLabel.setBounds(0, 0, getWidth(), getHeight());
 
-        timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
+        timeSwitch.setBounds(getWidth() - 120, 10, 85, 20);
+        restart.setBounds(getWidth() - 120, 40, 85, 20);
+        highestScoreLabel.setBounds(getWidth() - 120, 70, 85, 20);
         scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
-        restart.setBounds(getWidth() - 120, 60, 85, 20);
         gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
     }
 
@@ -175,8 +180,10 @@ public class Main extends Frame {
         restart = new Button("restart");
         launchLabel = new Label("Press SPACE to start!", Label.CENTER);
         scoreLabel = new Label();
+        highestScoreLabel = new Label();
         gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         scoreLabel.setText("0");
+        highestScoreLabel.setText(Integer.toString(highestScore));
 
         setInterface();
 
@@ -194,6 +201,7 @@ public class Main extends Frame {
         panel.add(timeSwitch);
         panel.add(restart);
         panel.add(scoreLabel);
+        panel.add(highestScoreLabel);
         panel.add(gameOverLabel);
         panel.add(launchLabel);
 
