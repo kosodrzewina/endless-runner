@@ -90,13 +90,7 @@ public class Main extends Frame {
     }
 
     public void paint(Graphics graphics) {
-        if (launch)
-            launchLabel.setBounds(0, 0, getWidth(), getHeight());
-
-        timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
-        scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
-        restart.setBounds(getWidth() - 120, 60, 85, 20);
-        gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
+        setInterface();
 
         if (running) {
             environment = setEnvironment(environmentState);
@@ -159,6 +153,16 @@ public class Main extends Frame {
         return colors;
     }
 
+    public void setInterface() {
+        if (launch)
+            launchLabel.setBounds(0, 0, getWidth(), getHeight());
+
+        timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
+        scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
+        restart.setBounds(getWidth() - 120, 60, 85, 20);
+        gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
+    }
+
     public Main() {
         setTitle("Runner");
         setSize(1280, 720);
@@ -174,11 +178,7 @@ public class Main extends Frame {
         gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         scoreLabel.setText("0");
 
-        timeSwitch.setBounds(getWidth() - 120, 30, 85, 20);
-        restart.setBounds(getWidth() - 120, 60, 85, 20);
-        scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
-        gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
-        launchLabel.setBounds(0, 0, getWidth(), getHeight());
+        setInterface();
 
         gameOverLabel.setFont(new Font("Cambria", Font.PLAIN, 100));
         gameOverLabel.setOpaque(true);
