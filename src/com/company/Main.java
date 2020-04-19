@@ -69,6 +69,9 @@ public class Main extends Frame {
             exception.printStackTrace();
         }
 
+        highestScore = findHighestScore(file);
+        highestScoreLabel.setText(Integer.toString(highestScore));
+
         restart.setEnabled(true);
     }
 
@@ -183,6 +186,11 @@ public class Main extends Frame {
         highestScoreLabel = new Label();
         gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         scoreLabel.setText("0");
+
+        File scores = new File("scores.txt");
+        if (scores.exists())
+            highestScore = findHighestScore(scores);
+
         highestScoreLabel.setText(Integer.toString(highestScore));
 
         setInterface();
@@ -274,6 +282,7 @@ public class Main extends Frame {
             scoreLabel.setText(String.valueOf(score));
             gameOverLabel.setVisible(false);
             scoreLabel.setBackground(environment[1]);
+            highestScoreLabel.setBackground(environment[1]);
 
             gameLoopThread = new Thread(this::gameLoop);
 
