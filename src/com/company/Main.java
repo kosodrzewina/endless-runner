@@ -15,7 +15,9 @@ public class Main extends Frame {
     private Button restart;
     private Button timeSwitch;
     private Label scoreLabel;
+    private Label scoreTitle;
     private Label highestScoreLabel;
+    private Label highestScoreTitle;
     private JLabel gameOverLabel;
     private Label launchLabel;
     private boolean launch = true;
@@ -46,9 +48,12 @@ public class Main extends Frame {
     public void gameOver() {
         running = false;
         gameOverLabel.setVisible(true);
-        scoreLabel.setBackground(Color.red);
-        highestScoreLabel.setBackground(Color.red);
         timeSwitch.setEnabled(false);
+
+        scoreTitle.setBackground(Color.red);
+        scoreLabel.setBackground(Color.red);
+        highestScoreTitle.setBackground(Color.red);
+        highestScoreLabel.setBackground(Color.red);
 
         // saving score
         File file = new File("scores.txt");
@@ -104,6 +109,8 @@ public class Main extends Frame {
 
             if (switchTime) {
                 setBackground(environment[0]);
+                scoreTitle.setBackground(environment[1]);
+                highestScoreTitle.setBackground(environment[1]);
                 scoreLabel.setBackground(environment[1]);
                 highestScoreLabel.setBackground(environment[1]);
                 switchTime = false;
@@ -166,8 +173,10 @@ public class Main extends Frame {
 
         timeSwitch.setBounds(getWidth() - 120, 10, 85, 20);
         restart.setBounds(getWidth() - 120, 40, 85, 20);
-        highestScoreLabel.setBounds(getWidth() - 120, 70, 85, 20);
-        scoreLabel.setBounds(getWidth() - 120, 90, 85, 20);
+        highestScoreTitle.setBounds(getWidth() - 120, 70, 45, 20);
+        highestScoreLabel.setBounds(getWidth() - 75, 70, 40, 20);
+        scoreTitle.setBounds(getWidth() - 120, 90, 40, 20);
+        scoreLabel.setBounds(getWidth() - 75, 90, 40, 20);
         gameOverLabel.setBounds(0, 0, getWidth(), getHeight());
     }
 
@@ -187,6 +196,9 @@ public class Main extends Frame {
         gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         scoreLabel.setText("0");
 
+        scoreTitle = new Label("CURRENT:");
+        highestScoreTitle = new Label("HIGHEST:");
+
         File scores = new File("scores.txt");
         if (scores.exists())
             highestScore = findHighestScore(scores);
@@ -203,12 +215,17 @@ public class Main extends Frame {
         launchLabel.setFont(new Font("Cambria", Font.PLAIN, 100));
         launchLabel.setVisible(true);
 
+        scoreTitle.setFont(new Font("Cambria", Font.PLAIN, 7));
+        highestScoreTitle.setFont(new Font("Cambria", Font.PLAIN, 7));
+
         restart.setEnabled(false);
         restart.setFocusable(false);
 
         panel.add(timeSwitch);
         panel.add(restart);
+        panel.add(scoreTitle);
         panel.add(scoreLabel);
+        panel.add(highestScoreTitle);
         panel.add(highestScoreLabel);
         panel.add(gameOverLabel);
         panel.add(launchLabel);
@@ -281,7 +298,10 @@ public class Main extends Frame {
             restart.setEnabled(false);
             scoreLabel.setText(String.valueOf(score));
             gameOverLabel.setVisible(false);
+
+            scoreTitle.setBackground(environment[1]);
             scoreLabel.setBackground(environment[1]);
+            highestScoreTitle.setBackground(environment[1]);
             highestScoreLabel.setBackground(environment[1]);
 
             gameLoopThread = new Thread(this::gameLoop);
