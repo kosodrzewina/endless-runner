@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main extends Frame {
     private boolean switchTime = true;
@@ -65,6 +67,26 @@ public class Main extends Frame {
         }
 
         restart.setEnabled(true);
+    }
+
+    public int findHighestScore(File scoreBoard) {
+        int max = 0;
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(scoreBoard))) {
+            String line, pattern = "([0-9]+): ";
+            Matcher matcher;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                matcher = Pattern.compile(pattern).matcher(line);
+
+                if (matcher.find() && Integer.parseInt(matcher.group(1)) > max)
+                    max = Integer.parseInt(matcher.group(1));
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        return max;
     }
 
     public void paint(Graphics graphics) {
