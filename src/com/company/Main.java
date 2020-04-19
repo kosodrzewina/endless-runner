@@ -100,6 +100,22 @@ public class Main extends Frame {
         return max;
     }
 
+    public void jump() {
+        if (!inAir)
+            player.y = groundLevel - player.height;
+        else if (!goBack && groundLevel - player.y < jumpLimit)
+            player.y -= 10;
+        else if (!goBack)
+            goBack = true;
+
+        if (goBack && groundLevel - player.y > getHeight() - groundLevel - player.height)
+            player.y += 10;
+        else if (goBack) {
+            goBack = false;
+            inAir = false;
+        }
+    }
+
     public void paint(Graphics graphics) {
         setInterface();
 
@@ -123,21 +139,7 @@ public class Main extends Frame {
             sunMoon.paint(graphics);
 
             player.paint(graphics);
-
-            // jumping
-            if (!inAir)
-                player.y = groundLevel - player.height;
-            else if (!goBack && groundLevel - player.y < jumpLimit)
-                player.y -= 10;
-            else if (!goBack)
-                goBack = true;
-
-            if (goBack && groundLevel - player.y > getHeight() - groundLevel - player.height)
-                player.y += 10;
-            else if (goBack) {
-                goBack = false;
-                inAir = false;
-            }
+            jump();
 
             // drawing obstacles on the ground
             for (int i = 0; i < obstacles.size(); i++) {
