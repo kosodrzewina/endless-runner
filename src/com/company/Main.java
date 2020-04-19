@@ -132,7 +132,7 @@ public class Main extends Frame {
                 switchTime = false;
             }
 
-            Ground ground = new Ground(groundLevel);
+            Ground ground = new Ground(groundLevel, GroundPalette.FOREGROUND);
             ground.paint(graphics);
 
             Circle sunMoon = new Circle(200, environment[1], getWidth() - 200, -200);
