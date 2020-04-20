@@ -18,7 +18,7 @@ public class Main extends Frame {
     private Label scoreTitle;
     private Label highestScoreLabel;
     private Label highestScoreTitle;
-    private JLabel gameOverLabel;
+    private Label gameOverLabel;
     private Label launchLabel;
     private boolean launch = true;
     private int score = -10;
@@ -195,7 +195,7 @@ public class Main extends Frame {
         launchLabel = new Label("Press SPACE to start!", Label.CENTER);
         scoreLabel = new Label();
         highestScoreLabel = new Label();
-        gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
+        gameOverLabel = new Label("GAME OVER", Label.CENTER);
         scoreLabel.setText("0");
 
         scoreTitle = new Label("CURRENT:");
@@ -210,7 +210,6 @@ public class Main extends Frame {
         setInterface();
 
         gameOverLabel.setFont(new Font("Cambria", Font.PLAIN, 100));
-        gameOverLabel.setOpaque(true);
         gameOverLabel.setBackground(Color.red);
         gameOverLabel.setVisible(false);
 
